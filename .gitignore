@@ -1,0 +1,15 @@
+### Gradle ###
+.gradle/ 
+build/ 
+gradle/ 
+*.jar
+### IDE ###
+.idea/ 
+*.iml
+### Docker ###
+*.log
+### Локальные данные ###
+target/ 
+*.class
+### База данных ###
+postgres-data/

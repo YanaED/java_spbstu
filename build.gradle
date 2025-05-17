@@ -1,0 +1,62 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.3' apply false
+    id 'io.spring.dependency-management' version '1.1.4' apply false
+}
+
+allprojects {
+    group = 'com.example'
+    version = '0.0.1-SNAPSHOT'
+    
+    repositories {
+        mavenCentral()
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+    
+    java {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+    
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-actuator'
+        implementation 'io.micrometer:micrometer-registry-prometheus'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'org.slf4j:slf4j-api'
+        
+        // PostgreSQL и JPA
+        implementation 'org.postgresql:postgresql:42.7.3'
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+        
+        // Flyway для миграций
+        implementation 'org.flywaydb:flyway-core:9.22.3'
+        
+        // RabbitMQ
+        implementation 'org.springframework.boot:spring-boot-starter-amqp'
+        
+        // Redis для кэширования
+        implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+        
+        // Тестовые зависимости
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        testImplementation 'org.junit.jupiter:junit-jupiter-api'
+        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+        testImplementation 'org.mockito:mockito-core:5.11.0'
+        testImplementation 'org.mockito:mockito-junit-jupiter:5.11.0'
+    }
+    
+    test {
+        useJUnitPlatform()
+    }
+}
